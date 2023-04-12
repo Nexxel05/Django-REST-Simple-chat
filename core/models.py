@@ -11,6 +11,10 @@ class Thread(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
+    def __str__(self) -> str:
+        return ("Participants: "
+                f"{[participant.username for participant in self.participants.all()]}")
+
 
 class Message(models.Model):
     sender = models.ForeignKey(
@@ -18,3 +22,17 @@ class Message(models.Model):
         related_name="messages",
         on_delete=models.CASCADE
     )
+    text = models.TextField()
+    thread = models.ForeignKey(
+        Thread,
+        related_name="messages",
+        on_delete=models.CASCADE
+    )
+    created = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        return (
+            f"From {self.sender.username} "
+            f"on {self.created.strftime('%d/%m/%Y %H:%M:%S')}"
+        )
