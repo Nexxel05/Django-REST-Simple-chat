@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.db.models.signals import m2m_changed
+from rest_framework.exceptions import ValidationError
 
 
 class User(AbstractUser):
@@ -16,6 +18,15 @@ class Thread(models.Model):
             "Participants: "
             f"{[user.username for user in self.participants.all()]}"
         )
+
+
+def participants_changed(sender, **kwargs):
+    instance = kwargs['instance']
+    if len(instance.participants.all()) > 2:
+        raise ValidationError("Thread can not have more than 2 participants")
+
+
+m2m_changed.connect(participants_changed, sender=Thread.participants.through)
 
 
 class Message(models.Model):
