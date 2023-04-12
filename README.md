@@ -1,0 +1,1 @@
+"# Django-REST-Simple-chat" 
