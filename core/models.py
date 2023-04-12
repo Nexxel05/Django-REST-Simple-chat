@@ -12,8 +12,10 @@ class Thread(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
-        return ("Participants: "
-                f"{[participant.username for participant in self.participants.all()]}")
+        return (
+            "Participants: "
+            f"{[user.username for user in self.participants.all()]}"
+        )
 
 
 class Message(models.Model):
@@ -30,6 +32,9 @@ class Message(models.Model):
     )
     created = models.DateTimeField(auto_now_add=True)
     is_read = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ("created",)
 
     def __str__(self) -> str:
         return (
