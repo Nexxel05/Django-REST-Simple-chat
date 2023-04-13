@@ -33,7 +33,9 @@ class UserThreadListView(generics.ListAPIView):
     serializer_class = ThreadSerializer
 
     def get_queryset(self):
-        return Thread.objects.filter(participants__username=self.kwargs["username"])
+        return Thread.objects.filter(
+            participants__username=self.kwargs["username"]
+        )
 
 
 @api_view(["GET"])
@@ -42,7 +44,9 @@ def user_unread_messages_count(request, username):
         sender__username=username,
         is_read=False
     ).count()
-    return Response(f"User '{username}' has {unread_messages_count} unread messages")
+    return Response(
+        f"User '{username}' has {unread_messages_count} unread messages"
+    )
 
 
 class ThreadMessageCreateView(
@@ -64,7 +68,9 @@ class ThreadMessageCreateView(
 
     def create(self, request, *args, **kwargs):
         super(ThreadMessageCreateView, self).create(request, *args, **kwargs)
-        return HttpResponseRedirect(reverse("core:message-create", args=[self.kwargs["pk"]]))
+        return HttpResponseRedirect(
+            reverse("core:message-create", args=[self.kwargs["pk"]])
+        )
 
     def perform_create(self, serializer: Serializer) -> None:
         thread = Thread.objects.get(id=self.kwargs["pk"])
@@ -90,5 +96,9 @@ class MessageDetailChangeStatusView(
         return serializer_dict.get(self.action)
 
     def update(self, request, *args, **kwargs):
-        super(MessageDetailChangeStatusView, self).update(request, *args, **kwargs)
-        return HttpResponseRedirect(reverse("core:message-detail", args=[self.kwargs["pk"]]))
+        super(MessageDetailChangeStatusView, self).update(
+            request, *args, **kwargs
+        )
+        return HttpResponseRedirect(
+            reverse("core:message-detail", args=[self.kwargs["pk"]])
+        )

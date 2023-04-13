@@ -30,7 +30,9 @@ class ThreadCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         if len(validated_data["participants"]) > 2:
-            raise ValidationError("Thread can not have more than 2 participants")
+            raise ValidationError(
+                "Thread can not have more than 2 participants"
+            )
         else:
             participants = validated_data.pop("participants")
             threads = Thread.objects.all()
@@ -47,7 +49,9 @@ class ThreadCreateSerializer(serializers.ModelSerializer):
 
 class MessageSerializer(serializers.ModelSerializer):
     created = serializers.DateTimeField(format="%H:%M:%S %d/%m/%Y")
-    sender = serializers.SlugRelatedField(slug_field="username", read_only=True)
+    sender = serializers.SlugRelatedField(
+        slug_field="username", read_only=True
+    )
     thread = serializers.StringRelatedField()
 
     class Meta:
