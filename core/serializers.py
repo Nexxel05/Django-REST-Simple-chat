@@ -5,12 +5,9 @@ from core.models import Thread, Message
 
 
 class ThreadSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Thread
-        fields = "__all__"
+    created = serializers.DateTimeField(format="%H:%M:%S %d/%m/%Y")
+    updated = serializers.DateTimeField(format="%H:%M:%S %d/%m/%Y")
 
-
-class ThreadCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Thread
         fields = "__all__"
@@ -33,6 +30,8 @@ class ThreadCreateSerializer(serializers.ModelSerializer):
 
 
 class MessageSerializer(serializers.ModelSerializer):
+    created = serializers.DateTimeField(format="%H:%M:%S %d/%m/%Y")
+
     class Meta:
         model = Message
         fields = "__all__"

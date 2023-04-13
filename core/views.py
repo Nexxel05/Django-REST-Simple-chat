@@ -11,14 +11,13 @@ from core.serializers import (
     MessageSerializer,
     MessageCreateSerializer,
     MessageChangeStatusSerializer,
-    ThreadCreateSerializer
 )
 
 
 class ThreadCreateView(
     generics.CreateAPIView
 ):
-    serializer_class = ThreadCreateSerializer
+    serializer_class = ThreadSerializer
 
 
 class ThreadDeleteView(generics.RetrieveDestroyAPIView):
