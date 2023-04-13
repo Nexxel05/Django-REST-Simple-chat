@@ -34,7 +34,7 @@ class Message(models.Model):
     is_read = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ("created",)
+        ordering = ("-created",)
 
     def __str__(self) -> str:
         return (
