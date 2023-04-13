@@ -5,8 +5,24 @@ from core.models import Thread, Message
 
 
 class ThreadSerializer(serializers.ModelSerializer):
-    created = serializers.DateTimeField(format="%H:%M:%S %d/%m/%Y")
-    updated = serializers.DateTimeField(format="%H:%M:%S %d/%m/%Y")
+    created = serializers.DateTimeField(
+        format="%H:%M:%S %d/%m/%Y"
+    )
+    updated = serializers.DateTimeField(
+        format="%H:%M:%S %d/%m/%Y"
+    )
+    participants = serializers.SlugRelatedField(
+        many=True,
+        slug_field="username",
+        read_only=True
+    )
+
+    class Meta:
+        model = Thread
+        fields = "__all__"
+
+
+class ThreadCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Thread
@@ -31,6 +47,8 @@ class ThreadSerializer(serializers.ModelSerializer):
 
 class MessageSerializer(serializers.ModelSerializer):
     created = serializers.DateTimeField(format="%H:%M:%S %d/%m/%Y")
+    sender = serializers.SlugRelatedField(slug_field="username", read_only=True)
+    thread = serializers.StringRelatedField()
 
     class Meta:
         model = Message

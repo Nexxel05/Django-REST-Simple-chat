@@ -11,13 +11,14 @@ from core.serializers import (
     MessageSerializer,
     MessageCreateSerializer,
     MessageChangeStatusSerializer,
+    ThreadCreateSerializer,
 )
 
 
 class ThreadCreateView(
     generics.CreateAPIView
 ):
-    serializer_class = ThreadSerializer
+    serializer_class = ThreadCreateSerializer
 
 
 class ThreadDeleteView(generics.RetrieveDestroyAPIView):
@@ -50,7 +51,6 @@ class ThreadMessageCreateView(
     mixins.ListModelMixin
 ):
     model = Message
-    serializer_class = MessageSerializer
 
     def get_serializer_class(self) -> Serializer:
         serializer_dict = {
