@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body style="margin-top: 50px">
+  <div style="text-align:center">
+    <h1>Welcome to Simple chat API!</h1>
+    <h3>Here you can check threads and messages. Or create the ones by your own!</h3>
+    <div>
+      <h4>
+        <a href="{% url 'token_obtain_pair' %}">Get</a> your token required for authentication
+      </h4>
+    </div>
+    <h4><a href="{% url 'swagger' %}">Swagger</a> Documentation available with all endpoint concerned, check it out!</h4>
+  </div>
+
+</body>
+</html>
