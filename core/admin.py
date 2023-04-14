@@ -24,7 +24,6 @@ class Message(admin.ModelAdmin):
 
 @admin.register(User)
 class UserAdmin(BaseAdmin):
-
     add_fieldsets = BaseAdmin.add_fieldsets + (
         ("Personal info", {"fields": (
             "first_name", "last_name", "email")}

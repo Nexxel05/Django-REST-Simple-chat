@@ -7,7 +7,6 @@ from rest_framework.test import APIClient
 from core.models import User, Thread, Message
 from core.serializers import ThreadSerializer
 
-
 THREAD_CREATE_URL = reverse("core:thread-create")
 
 

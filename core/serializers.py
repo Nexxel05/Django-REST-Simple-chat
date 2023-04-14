@@ -23,7 +23,6 @@ class ThreadSerializer(serializers.ModelSerializer):
 
 
 class ThreadCreateSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Thread
         fields = "__all__"

@@ -1,5 +1,3 @@
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from rest_framework import viewsets, mixins, generics
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
