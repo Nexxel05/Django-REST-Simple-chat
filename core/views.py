@@ -66,12 +66,6 @@ class ThreadMessageCreateView(
     def get_queryset(self) -> Message:
         return Message.objects.filter(thread__id=self.kwargs["pk"])
 
-    def create(self, request, *args, **kwargs):
-        super(ThreadMessageCreateView, self).create(request, *args, **kwargs)
-        return HttpResponseRedirect(
-            reverse("core:message-create", args=[self.kwargs["pk"]])
-        )
-
     def perform_create(self, serializer: Serializer) -> None:
         thread = Thread.objects.get(id=self.kwargs["pk"])
         serializer.save(
@@ -94,11 +88,3 @@ class MessageDetailChangeStatusView(
             "update": MessageChangeStatusSerializer
         }
         return serializer_dict.get(self.action)
-
-    def update(self, request, *args, **kwargs):
-        super(MessageDetailChangeStatusView, self).update(
-            request, *args, **kwargs
-        )
-        return HttpResponseRedirect(
-            reverse("core:message-detail", args=[self.kwargs["pk"]])
-        )
