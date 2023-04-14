@@ -16,10 +16,16 @@ from core.serializers import (
 class ThreadCreateView(
     generics.CreateAPIView
 ):
+    """
+    Thread creation or retrieve if a thread with particular users exist.
+    """
     serializer_class = ThreadCreateSerializer
 
 
 class ThreadDeleteView(generics.RetrieveDestroyAPIView):
+    """
+    Retrieving and deletion thread
+    """
     model = Thread
     serializer_class = ThreadSerializer
 
@@ -28,6 +34,9 @@ class ThreadDeleteView(generics.RetrieveDestroyAPIView):
 
 
 class UserThreadListView(generics.ListAPIView):
+    """
+    Retrieving the list of threads for any user
+    """
     serializer_class = ThreadSerializer
 
     def get_queryset(self):
@@ -38,6 +47,9 @@ class UserThreadListView(generics.ListAPIView):
 
 @api_view(["GET"])
 def user_unread_messages_count(request, username):
+    """
+    Retrieving a number of unread messages for the user
+    """
     unread_messages_count = Message.objects.filter(
         sender__username=username,
         is_read=False
@@ -52,6 +64,9 @@ class ThreadMessageCreateView(
     mixins.CreateModelMixin,
     mixins.ListModelMixin
 ):
+    """
+    Creation of a message and retrieving message list for the thread
+    """
     model = Message
 
     def get_serializer_class(self) -> Serializer:
@@ -77,6 +92,9 @@ class MessageDetailChangeStatusView(
     mixins.RetrieveModelMixin,
     mixins.UpdateModelMixin
 ):
+    """
+    Retrieve message detail or marking the message as read
+    """
     serializer_class = MessageSerializer
     queryset = Message.objects.all()
 
